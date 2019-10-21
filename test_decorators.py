@@ -1,4 +1,4 @@
-from decorators import cache, register_function,  observable, log_with, inject
+from decorators import cache, register_function, observable, log_with, inject
 
 
 def test_cache():
@@ -7,11 +7,14 @@ def test_cache():
     @cache
     def foo(name):
         foo_count_call[0] += 1
-        return f'hello {name}'
+        return f"hello {name}"
 
-    assert foo("jean") == 'hello jean'
-    assert foo("jean") == 'hello jean'
+    assert foo("jean") == "hello jean"
+    assert foo("jean") == "hello jean"
     assert foo_count_call[0] == 1
+    assert foo("albert") == "hello albert"
+    assert foo("albert") == "hello albert"
+    assert foo_count_call[0] == 2
 
 
 def test_log_with():
@@ -25,10 +28,16 @@ def test_log_with():
     def foo(x, y):
         return x * y
 
+    # foo = log_with(list_logger)(foo)
     foo(1, 2)
     foo(5, 5)
 
-    assert logs == ["call foo(1, 2)", "foo(1, 2) returns 2", "call foo(5, 5)", "foo(5, 5) returns 25"]
+    assert logs == [
+        "call foo(1, 2)",
+        "foo(1, 2) returns 2",
+        "call foo(5, 5)",
+        "foo(5, 5) returns 25",
+    ]
     # same logic for benchmark, timeit, trace, count function call
 
 
@@ -47,7 +56,8 @@ def test_register_function():
 
 
 def test_observer():
-    append, observer, get_value = observable([])
+    l = []
+    append, observer = observable(l)
 
     copy_of_o = []
 
@@ -58,9 +68,9 @@ def test_observer():
     append(11)
     append(22)
     append(33)
-
+    # TODO add another observer
     assert copy_of_o == [11, 22, 33]
-    assert get_value() == [11, 22, 33]
+    assert l == [11, 22, 33]
 
 
 def test_inject():
@@ -69,3 +79,9 @@ def test_inject():
         return dep, not_dep
 
     assert foo("hello") == ("dependency1", "hello")
+
+    @inject(not_dep="dependency1")
+    def foo(not_dep, dep):
+        return dep, not_dep
+
+    assert foo("hello") == ("hello", "dependency1")
