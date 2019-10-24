@@ -21,7 +21,6 @@ def test_make_append_only_list():
     l_copy.append({"name": "edouard"})
     assert [{"name": "jean"}, {"name": "mohammed"}] == get_l1()
 
-
 def test_mymap():
     assert mymap(["a", "b"], str.upper) == ["A", "B"]
     assert mymap(["a", "b"], make_wrap("(", ")")) == ["(a)", "(b)"]

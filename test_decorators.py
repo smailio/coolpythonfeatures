@@ -1,12 +1,13 @@
 from decorators import cache, register_function,  observable, log_with, inject
-
+import pip
 
 def test_cache():
-    foo_count_call = [0]
+    foo_count_call = 0
 
     @cache
     def foo(name):
-        foo_count_call[0] += 1
+        global foo_count_call
+        foo_count_call = 1
         return f'hello {name}'
 
     assert foo("jean") == 'hello jean'
