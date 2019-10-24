@@ -1,5 +1,5 @@
 from decorators import cache, register_function,  observable, log_with, inject
-import pip
+
 
 def test_cache():
     foo_count_call = 0
