@@ -1,28 +1,25 @@
-def make_wrap(*args):
+def make_wrap(c, c2=None):
+    if c2 is None:
+        c2 = c
 
-    def wrap(sWord):
-        sRes = sWord
-        l = list(args)
-        if len(l) == 1:
-            sRes = l[0] + sRes + l[0]
-        else:
-            sRes = l[0] + sRes + l[1]
-        return sRes
+    def wrap(s):
+        return c + s + c2
+
     return wrap
 
+
 def make_append_only_list():
+    append_only_list = []
 
-    l1 = []
-    def funcAppend(dictArg):
-        l1.append(dictArg)
+    def append(e):
+        append_only_list.append(e)
 
-    def funcGet()  :
-        return l1.copy()
+    def copy():
+        from copy import deepcopy
+        return deepcopy(append_only_list)
 
-    return funcAppend,funcGet
+    return append, copy
 
-def mymap(listArg, funcArg):
-    listRes = []
-    for lArg in listArg:
-        listRes.append(funcArg(lArg))
-    return listRes
+
+def mymap(l, f):
+    return [f(e) for e in l]

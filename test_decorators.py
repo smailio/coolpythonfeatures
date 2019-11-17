@@ -1,18 +1,19 @@
 from decorators import cache, register_function,  observable, log_with, inject
 
 
+
 def test_cache():
     foo_count_call = 0
 
     @cache
     def foo(name):
-        global foo_count_call
-        foo_count_call = 1
+        nonlocal foo_count_call
+        foo_count_call += 1
         return f'hello {name}'
 
     assert foo("jean") == 'hello jean'
     assert foo("jean") == 'hello jean'
-    assert foo_count_call[0] == 1
+    assert foo_count_call == 1
 
 
 def test_log_with():
