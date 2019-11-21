@@ -11,7 +11,7 @@ def write_in_f(text):
 
 def test_cd():
     """
-    Here you'll implement Cd which is a context manager that
+    To make this test pass you'll implement Cd which is a context manager that
     change the working directory, so in a block of code wrapped by Cd
     the current working directory will be the one given to Cd.
 
@@ -32,11 +32,17 @@ def test_cd():
     """
     To implement Cd you can use the getcwd chdir from os module.
     """
+    in_p1 = Cd("p1")
     with Cd(dir_path):
-        with Cd("p1"):
+        with in_p1:
             write_in_f("hello 1")
             with Cd("p2"):
                 write_in_f("hello 2")
+    with Cd("telechargements"):
+        with in_p1:
+            pass
+    getattr(module, attrname)
+    setattr()
 
     """
     If everything went fine a file named f exists in p1 and another 
@@ -50,7 +56,7 @@ def test_cd():
 
 def test_patch():
     """
-    Here you'll implement your own version of the awesome unittest.mock.patch
+    To make this test pass you'll implement your own version of the awesome unittest.mock.patch
 
     Inside the patched block the patched attribute will be evaluate to the provided
     value, once we exit the patched block the attribute will go back to their
