@@ -1,10 +1,15 @@
 import random
+
+import pytest
+
 from generators_solution import (
     flat_list,
     create_intervals,
-    add_one,
-    produce_untill,
+    inc_all,
+    inifite_rand_int,
     chain,
+    iterate,
+    sliding_window,
 )
 
 
@@ -30,36 +35,76 @@ def test_chain():
     assert chain([1, 2, 3], []) == [1, 2, 3]
 
 
-def test_random_generator():
+def test_iterate():
+    number_of_iteration = random.randint(0, 100)
+    prev = 0
+    int_stream = iterate(lambda x: x + 1, prev)
+    for _ in range(number_of_iteration):
+        n = next(int_stream)
+        assert prev + 1 == n
+        prev = n
+
+    number_of_iteration = random.randint(0, 100)
+    prev = 1
+    power_of_2_stream = iterate(lambda x: x * 2, prev)
+    for _ in range(number_of_iteration):
+        n = next(power_of_2_stream)
+        assert prev * 2 == n
+        prev = n
+
+
+def test_slicing_window():
+    assert list(sliding_window(2, [1, 2, 3, 4])) == [(1, 2), (2, 3), (3, 4)]
+    assert list(sliding_window(2, [9, 8, 12])) == [(9, 8), (8, 12)]
+    assert list(sliding_window(2, [])) == []
+    assert list(sliding_window(3, [1, 2, 3, 4])) == [(1, 2, 3), (2, 3, 4)]
+    assert list(sliding_window(3, [9, 8, 12])) == [(9, 8, 12)]
+    assert list(sliding_window(3, [9, 8])) == [(9, 8)]
+    assert list(sliding_window(3, [])) == []
+    assert list(sliding_window(1, [1, 2, 3, 4])) == [(1,), (2,), (3,), (4,)]
+    assert list(sliding_window(1, [9, 8, 12])) == [(9,), (8,), (12,)]
+    assert list(sliding_window(1, [])) == []
+
+
+@pytest.mark.parametrize(
+    "expected_results",
+    [
+        random.randint(0, 100),
+        random.randint(0, 100),
+        random.randint(0, 100),
+        random.randint(0, 100),
+        random.randint(0, 100),
+        random.randint(0, 100),
+    ],
+)
+def test_random_generator(expected_results):
     call_to_producer = 0
 
-    expected_results = random.randint(0, 9)
-
-    def producer():
+    def get_rand_int():
         nonlocal call_to_producer
         call_to_producer += 1
         return random.randint(0, 100)
 
-    produce_untill_len = 0
-    for e in produce_untill(producer, lambda x: x == expected_results):
-        produce_untill_len += 1
+    for i, e in enumerate(inifite_rand_int(get_rand_int)):
         if e == expected_results:
-            assert produce_untill_len == call_to_producer
+            assert (i + 1) == call_to_producer
+            break
 
 
 def test_apply_function_to_a_huge_collection():
-    l = range(0, 100000)
-    number_of_iteration = random.randint(9, 12)
-    for _ in [0] * number_of_iteration:
-        l = add_one(l)
+    l = ([0] * 10000000 for _ in range(0, 1000))
+    l = inc_all(l)
     l_len = 0
-    print(list(l))
-    for e in l:
+    expected_elem = [1] * 10000000
+    for actual_elem in l:
         l_len += 1
-        print(e)
-        assert (e - 1) == number_of_iteration
-    assert l_len == 1000000000
-    # assert list(l) == [number_of_iteration] * 10000000
+        assert actual_elem == expected_elem
+    assert l_len == 1000
+
+
+def sum_all(l):
+    for e in l:
+        yield sum(e)
 
 
 def test_create_intervals():
