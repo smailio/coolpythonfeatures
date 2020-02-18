@@ -1,4 +1,4 @@
-from functions import make_wrap, make_append_only_list, mymap
+from functions.functions import make_wrap, make_append_only_list, mymap
 
 
 def test_wrapper():

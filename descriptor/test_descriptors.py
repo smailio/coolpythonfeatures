@@ -1,5 +1,5 @@
 import sqlite3
-from descriptors import myclassmethod, mystaticmethod, normal_method, myproperty, mycachedproperty, Account
+from descriptor.descriptors import myclassmethod, mystaticmethod, normal_method, myproperty, mycachedproperty, Account
 
 
 def test_static_classic_method():

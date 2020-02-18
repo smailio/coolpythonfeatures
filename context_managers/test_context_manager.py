@@ -1,7 +1,7 @@
-from context_manager import Cd, Patch
+from context_managers.context_manager import Cd, Patch
 from os import path
 import os
-import config
+from context_managers import config
 
 
 def write_in_f(text):
@@ -60,7 +60,7 @@ def test_patch():
         return f'select * from {config.schema_name}.accounts'
 
     assert read_account() == 'select * from prod_schema.accounts'
-    with Patch(config, schema_name = 'test_schema'):
+    with Patch(config, schema_name ='test_schema'):
         assert read_account() == 'select * from test_schema.accounts'
     assert read_account() == 'select * from prod_schema.accounts'
 
