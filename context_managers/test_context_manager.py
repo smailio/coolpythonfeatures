@@ -56,6 +56,7 @@ def test_patch():
     value, once we exit the patched block the attribute will go back to their
     initial state.
     """
+
     def read_account():
         return f'select * from {config.schema_name}.accounts'
 
