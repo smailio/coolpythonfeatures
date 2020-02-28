@@ -1,4 +1,4 @@
-from tricks.tricks import (create_zigzag, panagram, reverse_string,
+from tricks.solutions import (create_zigzag, panagram, reverse_string,
                            remove_duplicates, transpose, anagrams, find_secret,
                            merge_dicts, non_unique_elements, most_frequent_elements,
                            is_ascending, sum_even_mult_last, friendly_number, find_path)

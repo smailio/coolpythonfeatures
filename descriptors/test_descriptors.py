@@ -1,5 +1,11 @@
 import sqlite3
-from descriptor.descriptors import myclassmethod, mystaticmethod, normal_method, myproperty, mycachedproperty, Account
+from descriptors.solutions import (
+    myclassmethod,
+    mystaticmethod,
+    normal_method,
+    myproperty,
+    mycachedproperty,
+    Account)
 
 
 def test_static_classic_method():
@@ -9,7 +15,6 @@ def test_static_classic_method():
     """
 
     class A:
-
         some_attribute = "some_value"
 
         def __init__(self, name):

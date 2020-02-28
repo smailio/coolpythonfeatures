@@ -1,4 +1,4 @@
-from decorators.dec import cache, register_function,  observable, log_with, inject
+from decorators.solutions import cache, register_function,  observable, log_with, inject
 
 from typing import Callable
 

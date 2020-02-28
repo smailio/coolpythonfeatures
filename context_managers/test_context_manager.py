@@ -1,4 +1,4 @@
-from context_managers.context_manager import Cd, Patch
+from context_managers.solutions import Cd, Patch
 from os import path
 import os
 from context_managers import config
