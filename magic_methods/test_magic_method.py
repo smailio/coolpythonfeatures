@@ -1,4 +1,4 @@
-from magic_methods.magic_methods import select, table
+from magic_methods.solutions import select, table
 
 
 def test_select_from():

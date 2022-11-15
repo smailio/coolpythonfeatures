@@ -2,3 +2,5 @@
 */.pytest_cache/*
 todo.txt
 .db
+.idea/
+venv

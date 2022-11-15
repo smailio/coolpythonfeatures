@@ -2,7 +2,7 @@ import random
 
 import pytest
 
-from generators_solution import (
+from generators.solutions import (
     flat_list,
     create_intervals,
     inc_all,
