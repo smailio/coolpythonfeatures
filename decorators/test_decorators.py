@@ -61,12 +61,14 @@ def test_register_function():
 
     @register_function(my_functions)
     def foo1():
-        pass
+        return "hey I'm foo1"
 
     @register_function(my_functions)
     def foo2():
-        pass
+        return "hey I'm foo2"
 
+    assert foo1() == "hey I'm foo1"
+    assert foo2() == "hey I'm foo2"
     assert my_functions == [foo1, foo2]
 
 
