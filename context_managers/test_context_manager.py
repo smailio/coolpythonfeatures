@@ -38,6 +38,8 @@ def test_cd():
         os.remove(f1_path)
     if path.exists(f2_path):
         os.remove(f2_path)
+    if path.exists(f3_path):
+        os.remove(f3_path)
 
     """
     To implement Cd you can use the getcwd chdir from os module.
