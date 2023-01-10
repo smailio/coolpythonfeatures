@@ -27,7 +27,7 @@ def test_cd():
     # set up the tests
     dir_path = path.dirname(path.realpath(__file__))
     p1_path = path.join(dir_path, "p1")
-    p2_path = path.join(dir_path, "p1")
+    p2_path = path.join(dir_path, "p2")
     Path(p1_path).mkdir(parents=True, exist_ok=True)
     Path(p2_path).mkdir(parents=True, exist_ok=True)
     f1_path = path.join(dir_path, "p1", "f")
