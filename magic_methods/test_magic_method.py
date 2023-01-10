@@ -1,4 +1,4 @@
-from magic_methods.solutions import select, table
+from solutions import select, table
 
 
 def test_select_from():
@@ -30,7 +30,7 @@ def test_select_from_where2():
         category = "string"
 
     customer = table(Customer)
-    category_is_gold = "gold" == customer.category
+    category_is_gold = customer.category == "gold"
     q = select(customer.name).frm(customer).where(category_is_gold)
     assert (
         str(q) == "select customer.name from customer where customer.category = 'gold'"
