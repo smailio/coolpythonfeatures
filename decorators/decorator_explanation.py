@@ -27,15 +27,23 @@ def my_shiny_new_decorator(a_function_to_decorate):
 def a_stand_alone_function():
     print('I am a stand alone function, don’t you dare modify me')
 
+a_stand_alone_function = my_shiny_new_decorator(a_stand_alone_function)
 a_stand_alone_function()
+
+@my_shiny_new_decorator
+def a_stand_alone_function():
+    print('I am a stand alone function, don’t you dare modify me')
+
+a_stand_alone_function()
+
 #outputs: I am a stand alone function, don't you dare modify me
 
 # Well, you can decorate it to extend its behavior.
 # Just pass it to the decorator, it will wrap it dynamically in
 # any code you want and return you a new function ready to be used:
 
-a_stand_alone_function_decorated = my_shiny_new_decorator(a_stand_alone_function)
-a_stand_alone_function_decorated()
+# a_stand_alone_function_decorated = my_shiny_new_decorator(a_stand_alone_function)
+# a_stand_alone_function_decorated()
 #outputs:
 #Before the function runs
 #I am a stand alone function, don't you dare modify me

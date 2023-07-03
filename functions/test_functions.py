@@ -1,5 +1,14 @@
 from functions.solutions import make_wrap, make_append_only_list, mymap
 
+"""
+Functions are first class citizen in Python, which means you can pass them to other functions as arguments, 
+return them from other functions as values, and store them in variables and data structures
+
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install pytest
+"""
+
 
 def test_wrapper():
     """

@@ -60,12 +60,15 @@ with open('config_file_path') as f:
 - à la fin du bloc il ferme le fichier, peu importe ce qu'il s'est passé dans le bloc,
 càd que si une exception a été levée le fichier sera quand même fermé 
 
+Un context manager est une abstraction sur le try finally. 
+
 Heuresement qu'on ce keyword, en Python si on avait juste la fonction les dev 
 auraient la flemme de fait un try finally, et encore plus la flemme 
 d'enrober leur code dans des fonctions et d'utiliser les décorateurs,
 on vivrait dans un monde où les ressources ne sont jamais fermés et la qualité moyenne des 
 codes  serait bien plus basse qu'elle ne l'est aujourd'hui.     
 
+ 
 
 ##### Un contexte manager ressemble à ça 
 

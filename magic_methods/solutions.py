@@ -2,19 +2,41 @@ import re
 
 
 class SelectClause:
-    pass
+    def __init__(self, *expressions):
+        self.expressions = expressions
+
+    def frm(self, table):
+        self.fromClause = FromClause(table, self)
+        return self.fromClause
+
+    def __str__(self):
+        expressions_str = ", ".join(str(e) for e in self.expressions)
+        return f'select {expressions_str}'
+
 
 
 class FromClause:
-    pass
+    def __init__(self, table, selectClause):
+        self.table = table
+        self.selectClause = selectClause
+        
+    def __str__(self):
+        return  f"{str(self.selectClause)} from {self.table}"
 
+    def where(self, expression):
+        return WhereClause(expression, self)
 
 class JoinClause:
     pass
 
 
 class WhereClause:
-    pass
+    def __init__(self, expression, fromClause):
+        self.expression = expression
+        self.fromClause = fromClause
+
+    def __str__(self):
+        return f"{str(self.fromClause)} where {str(self.expression)}"
 
 
 class GroupBy:
@@ -22,7 +44,7 @@ class GroupBy:
 
 
 def select(*args):
-    pass
+    return SelectClause(*args)
 
 
 def lit(value):
@@ -37,12 +59,24 @@ class Expr:
     pass
 
 
-class Column(Expr):
-    pass
+class Column:
+    def __init__(self, name) -> None:
+        self.name = name
+    
+    def __eq__(self, __o: object):
+        return EqCondition(self, __o)
+    
+    def __str__(self):
+        return self.name
 
 
-class EqCondition(Expr):
-    pass
+class EqCondition:
+    def __init__(self, leftpart, rightpart):
+        self.leftpart = leftpart
+        self.rightpart = rightpart
+
+    def __str__(self) -> str:
+        return f"{self.leftpart} = '{self.rightpart}'"
 
 
 class AndCondition(Expr):
@@ -54,7 +88,15 @@ class OrCondition(Expr):
 
 
 class Table:
-    pass
+    def __init__(self, cls):
+        self.table_cls = cls
+        self.columns = {colname : Column(f"{self.table_cls.__name__.lower()}.{colname}") for colname in vars(cls) if not colname.startswith("__")}
+
+    def __str__(self):
+        return self.table_cls.__name__.lower()
+
+    def __getattr__(self, item):
+        return self.columns[item]
 
 
 class CountAgg(Expr):
@@ -62,14 +104,14 @@ class CountAgg(Expr):
 
 
 def table(cls):
-    pass
+    return Table(cls)
 
 
 pattern = re.compile(r"( ){2,}")
 
 
 def sql(query) -> str:
-    pass
+    return 
 
 
 """def distinct(col):

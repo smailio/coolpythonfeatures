@@ -1,5 +1,10 @@
-def flat_list(l: []) -> []:
-    pass
+def flat_list(l):
+    for e in l:
+        print("processing ", e)
+        if isinstance(e, list):
+            yield from flat_list(e)
+        else:
+            yield e
 
 
 def create_intervals(numbers: {}) -> [()]:

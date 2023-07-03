@@ -2,7 +2,7 @@ import random
 
 import pytest
 
-from generators.solutions import (
+from solutions import (
     flat_list,
     create_intervals,
     inc_all,
@@ -30,9 +30,9 @@ def test_flatten_list():
 
 
 def test_chain():
-    assert chain([1, 2, 3], [4, 5, 9]) == [1, 2, 3, 4, 5, 9]
-    assert chain([], [4, 5, 9]) == [4, 5, 9]
-    assert chain([1, 2, 3], []) == [1, 2, 3]
+    assert list(chain([1, 2, 3], [4, 5, 9])) == [1, 2, 3, 4, 5, 9]
+    assert list(chain([], [4, 5, 9])) == [4, 5, 9]
+    assert list(chain([1, 2, 3], [])) == [1, 2, 3]
 
 
 def test_iterate():
@@ -110,3 +110,34 @@ def sum_all(l):
 def test_create_intervals():
     assert create_intervals({1, 2, 3, 4, 5, 7, 8, 12}) == [(1, 5), (7, 8), (12, 12)]
     assert create_intervals({1, 2, 3, 6, 7, 8, 4, 5}) == [(1, 8)]
+
+
+
+
+def double_number():
+    print("0")
+    number = yield
+    print("1")
+    while True:
+        number *= 2
+        print("2")
+        number = yield number
+
+if __name__ == '__main__':
+    # gen = double_number()
+    # print("start")
+    # print(gen.send(None))
+    # print("send 7")
+    # print(gen.send(7))
+    # print("send 11")
+    # print(gen.send(11))
+    # print(gen.send(13))
+
+    it = flat_list([1, [2, 2, 3], 4, 5])
+    for e in it:
+        print(e)
+        if e == 3:
+            break
+    print("salut")
+    for e in it:
+        print(e)

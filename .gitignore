@@ -1,0 +1,12 @@
+.pytest_cache
+*/.pytest_cache/*
+*/__pycache__/*
+todo.txt
+.db
+.idea/
+venv
+.venv/
+/.idea/
+/.venv/
+todo.txt
+.venv.bak/
